@@ -68,10 +68,6 @@ body {
   transition: 0.5s;
 }
 
-.sidebar li > *:not(button){
-  cursor: default;
-}
-
 .selected,
 .sidebar li:hover {
   background-color: var(--color-lightest);
@@ -116,7 +112,6 @@ form {
   display: grid;
   align-items: center;
   gap: 1.2rem;
-
   background-color: var(--color-lightest);
   border-radius: 7px;
 }
@@ -132,6 +127,7 @@ form {
 }
 
 label {
+  justify-self: self-start;
   font-weight: 500;
 }
 

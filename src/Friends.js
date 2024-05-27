@@ -1,8 +1,8 @@
 import Button from "./Button";
 
-export default function Friends({ friends }) {
+export default function Friends({ friends, onShowSplit, showSplit }) {
   return (
-    <li>
+    <li className={showSplit?.name === friends.name ? "selected" : ""}>
       <img src={friends.image} alt="profile" />
       <h3> {friends.name} </h3>
       {friends.balance < 0 ? (
@@ -14,7 +14,9 @@ export default function Friends({ friends }) {
           {friends.name} owes you {Math.abs(friends.balance)}$
         </p>
       )}
-      <Button> select </Button>
+      <Button onClick={() => onShowSplit(friends)}>
+        {showSplit?.name === friends.name ? "Close" : "Select"}
+      </Button>
     </li>
   );
 }

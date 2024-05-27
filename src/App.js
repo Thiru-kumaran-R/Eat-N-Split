@@ -1,6 +1,9 @@
 import "./App.css";
-import  Button  from "./Button";
+import Button from "./Button";
+import FormAddFrnd from "./FormAddFrnd";
 import Friends from "./Friends";
+import FormSplitBill from "./FormSplitBill";
+import { useState } from "react";
 
 const initialFriends = [
   {
@@ -24,35 +27,63 @@ const initialFriends = [
 ];
 
 export default function App() {
+  const [friends, setFriends] = useState(initialFriends);
+  const [showAddFriends, setShowAddFriends] = useState(false);
+  const [selectFriend, setSelectFriend] = useState(null);
+
+  function handleShowFriends() {
+    setShowAddFriends((prev) => {
+      return !prev;
+    });
+  }
+
+  function onsetFriends(newData) {
+    setFriends((prev) => {
+      return [...prev, newData];
+    });
+
+    setShowAddFriends((prev) => !prev);
+  }
+
+  function onShowSplit(friend) {
+    setSelectFriend(prev => {
+      return prev?.id === friend?.id ? null : friend
+    });
+
+  }
+
   return (
     <div className="app">
       <div className="sidebar">
-        <FriendsList />
+        <FriendsList
+          friends={friends}
+          showSplit={selectFriend}
+          onShowSplit={onShowSplit}
+        />
+        {showAddFriends && (
+          <FormAddFrnd onSetFriends={onsetFriends} friends={friends} />
+        )}
+        <Button onClick={handleShowFriends}>
+          {showAddFriends ? "Close" : "Add friend"}
+        </Button>
       </div>
+
+      {selectFriend && <FormSplitBill selectFriend={selectFriend} />}
     </div>
   );
 }
 
-function FriendsList() {
+function FriendsList({ friends, showSplit, onShowSplit }) {
   return (
     <ul>
-      {initialFriends.map((frnd) => (
-        <Friends friends={frnd} key={frnd.id} />
+      {friends.map((frnd) => (
+        <Friends
+          friends={frnd}
+          key={frnd.id}
+          showSplit={showSplit}
+          onShowSplit={onShowSplit}
+        />
       ))}
     </ul>
-  );
-}
-
-function FormAddFrnd() {
-  return (
-    <form className="form-add-friend">
-      <label> 👬 Friend name </label>
-      <input type="text" />
-
-      <label> 🌄 Image URL </label>
-      <input type="text" />
-
-      <Button> add friend </Button>
-    </form>
   );
 }
