@@ -51,10 +51,12 @@ The application should now be running on `http://localhost:3000`.
 ### Creating a New Bill
 
 1. Open the Eat-N-Split app.
-2. Click on the "Create New Bill" button.
-3. Enter the total amount and the names of the friends sharing the bill.
-4. Add items and assign them to friends as needed.
+2. Click on the "select" button.
+3. Enter the total amount and the names of the friend sharing the bill.
+4. Add items and assign them to friend as needed.
 5. Click "Split Bill" to see the amount each friend owes.
+
+## Example 
 
 
 ### Reporting Bugs
